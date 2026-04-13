@@ -1,60 +1,42 @@
-import * as repo from "../repositories/deviceRepository.js";
-
+import deviceRepository from "../repositories/deviceRepository.js";
 const VALID_PINS = [23, 22, 19, 18];
+class DeviceService {
 
-export const createDevice = async (data) => {
-  if (!VALID_PINS.includes(data.pin)) {
-    throw new Error("GPIO inválido!");
-  }
-
-  return await repo.create(data);
-};
-
-export const getDevices = async () => {
-  return await repo.findAll();
-};
-
-export const getDeviceById = async (id) => {
-  return await repo.findById(id);
-};
-
-export const updateDevice = async (id, data) => {
-  if (data.pin && !VALID_PINS.includes(data.pin)) {
-    throw new Error("GPIO inválido!");
-  }
-
-  return await repo.update(id, data);
-};
-
-export const updateDeviceByName = async (name, data) => {
-
-  const device = await repo.findByName(name);
-
-  if (!device) {
-    throw new Error("Dispositivo não encontrado");
-  }
-
-  // 🚫 impedir trocar nome para um já existente
-  if (data.name && data.name !== name) {
-    const existe = await repo.findByName(data.name);
-    if (existe) {
-      throw new Error("Nome já está em uso!");
+  async create(data) {
+    if (!VALID_PINS.includes(data.pin)) {
+      throw new Error("GPIO inválido!");
     }
-  }
+    return await deviceRepository.create(data);
+  };
 
-  return await repo.updateByName(name, data);
-};
+  async getAll() {
+    return await deviceRepository.getAll();
+  };
 
-export const deleteDevice = async (id) => {
-  const device = await repo.findById(id);
+  async getById(id) {
+    return await deviceRepository.getById(id);
+  };
 
-  if (!device) {
-    throw new Error("Dispositivo não encontrado");
-  }
+  async update(id, data) {
+    if (data.pin && !VALID_PINS.includes(data.pin)) {
+      throw new Error("GPIO inválido!");
+    }
 
-  if (device.status === true) {
-    throw new Error("GPIO ativo, desative para excluir dispositivo!");
-  }
+    return await deviceRepository.update(id, data);
+  };
 
-  return await repo.remove(id);
-};
+  async delete(id) {
+    const device = await deviceRepository.getById(id);
+
+    if (!device) {
+      throw new Error("Dispositivo não encontrado");
+    }
+
+    if (device.status === true) {
+      throw new Error("GPIO ativo, desative para excluir dispositivo!");
+    }
+
+    return await deviceRepository.delete(id);
+  };
+}
+export default new DeviceService();

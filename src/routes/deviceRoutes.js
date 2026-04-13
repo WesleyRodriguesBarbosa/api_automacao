@@ -1,13 +1,12 @@
-import { Router } from "express";
-import * as controller from "../controllers/deviceController.js";
+import express from 'express';
+import deviceController from '../controllers/deviceController.js';
 
-const router = Router();
+const router = express.Router();
 
-router.post("/", controller.create);
-router.get("/", controller.findAll);
-router.get("/:id", controller.findById);
-router.put("/:id", controller.update);
-router.put("/name/:name", controller.updateByName);
-router.delete("/:id", controller.remove);
+router.post('/', deviceController.create);
+router.get('/', deviceController.getAll);
+router.get('/:id', deviceController.getById);
+router.put('/:id', deviceController.update);
+router.delete('/:id', deviceController.delete);
 
 export default router;

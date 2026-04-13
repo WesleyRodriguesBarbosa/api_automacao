@@ -1,21 +1,34 @@
 import Device from "../models/Device.js";
 
-export const create = (data) => Device.create(data);
+class deviceRepository {
 
-export const findAll = () => Device.find();
+  async create(data) {
+    return await Device.create(data);
+  }
 
-export const findById = (id) => Device.findById(id);
+  async getAll() {
+    return await Device.find();
+  }
 
-export const update = (id, data) =>
-  Device.findByIdAndUpdate(id, data, {
-    returnDocument: "after"
-  });
+  async getById(id) {
+    return await Device.findById(id);
+  }
 
-export const remove = (id) => Device.findByIdAndDelete(id);
+  async update(id, data) {
+    return await Device.findByIdAndUpdate(id, data, {
+      returnDocument: "after"
+    });
+  }
 
-export const findByName = (name) => Device.findOne({ name });
+  async delete(id) {
+    return await Device.findByIdAndDelete(id);
+  }
 
-export const updateByName = (name, data) =>
-  Device.findOneAndUpdate({ name }, data, {
-    returnDocument: "after"
-  });
+  async updateByName(name, data) {
+    return await Device.findOneAndUpdate({ name }, data, {
+      returnDocument: "after"
+    });
+  }
+}
+
+export default new deviceRepository();

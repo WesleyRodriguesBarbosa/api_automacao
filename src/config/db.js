@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 
-export const connectDB = async () => {
+async function conectaNaDatabase(){
   try {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("Banco conectado!");
+    return mongoose.connection;
   } catch (error) {
     console.error("Erro ao conectar:", error);
-    process.exit(1);
   }
-};
+}
+export default conectaNaDatabase;
