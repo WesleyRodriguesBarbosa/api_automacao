@@ -1,9 +1,9 @@
-import DeviceService from "../services/deviceService.js";
+import deviceService from "../services/deviceService.js";
 
 class DeviceController {
     async create (req, res) {
         try {
-            const device = await service.create(req.body); //Chama o service para criar um novo dispositivo
+            const device = await deviceService.create(req.body); //Chama o deviceService para criar um novo dispositivo
             res.status(201).json(device);  //Se deu tudo certo, retorna o dispositivo criado
         } catch (error) { //Tratamento de erro
             if (error.code === 11000) { //Código 11000 = violação de índice único (unique) no MongoDB
@@ -33,7 +33,7 @@ class DeviceController {
 
     async getAll (req, res) {
         try {
-            const devices = await service.get();
+            const devices = await deviceService.get();
             res.json(devices);
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -42,7 +42,7 @@ class DeviceController {
 
     async getById (req, res) {
         try {
-            const device = await service.getById(req.params.id);
+            const device = await deviceService.getById(req.params.id);
             if (!device) {
                 return res.status(404).json({ error: "Dispositivo não encontrado" });
             }
@@ -54,7 +54,7 @@ class DeviceController {
 
     async update (req, res) {
         try {
-            const device = await service.update(req.params.id, req.body);
+            const device = await deviceService.update(req.params.id, req.body);
             if (!device) {
                 return res.status(404).json({ error: "Dispositivo não encontrado" });
             }
@@ -66,7 +66,7 @@ class DeviceController {
 
     async delete (req, res) {
         try {
-            await service.delete(req.params.id);
+            await deviceService.delete(req.params.id);
             res.json({ message: "Deletado com sucesso" });
         } catch (error) {
             res.status(400).json({ error: error.message });
