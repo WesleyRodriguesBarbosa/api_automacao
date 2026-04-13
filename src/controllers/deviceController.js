@@ -33,7 +33,7 @@ class DeviceController {
 
     async getAll (req, res) {
         try {
-            const devices = await deviceService.get();
+            const devices = await deviceService.getAll();
             res.json(devices);
         } catch (error) {
             res.status(500).json({ error: error.message });
