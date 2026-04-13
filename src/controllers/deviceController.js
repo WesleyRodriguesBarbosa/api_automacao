@@ -1,4 +1,4 @@
-import deviceService from "../services/deviceService.js";
+import DeviceService from "../services/deviceService.js";
 
 class DeviceController {
     async create (req, res) {
