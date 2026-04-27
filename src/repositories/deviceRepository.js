@@ -1,5 +1,4 @@
 import Device from "../models/Device.js";
-
 class deviceRepository {
 
   async create(data) {
@@ -16,7 +15,7 @@ class deviceRepository {
 
   async update(id, data) {
     return await Device.findByIdAndUpdate(id, data, {
-      returnDocument: "after"
+      returnDocument: "after"   //Documento depois da alteração
     });
   }
 
@@ -26,7 +25,7 @@ class deviceRepository {
 
   async updateByName(name, data) {
     return await Device.findOneAndUpdate({ name }, data, {
-      returnDocument: "after"
+      returnDocument: "after"  //Documento depois da alteração
     });
   }
 }
