@@ -23,11 +23,6 @@ class deviceRepository {
     return await Device.findByIdAndDelete(id);
   }
 
-  async updateByName(name, data) {
-    return await Device.findOneAndUpdate({ name }, data, {
-      returnDocument: "after"  //Documento depois da alteração
-    });
-  }
 }
 
 export default new deviceRepository();

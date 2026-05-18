@@ -12,7 +12,7 @@ class DeviceService {
     try {
       return await deviceRepository.create(data);
     } catch (error) {
-
+      // tratamento de erro do Mongo
       if (error.code === 11000) {
         const campo = Object.keys(error.keyValue)[0];
 

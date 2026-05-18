@@ -10,7 +10,7 @@ const deviceSchema = new mongoose.Schema({
     {
         versionKey: false
 });
-
+// evitar duplicidade no Mongo
 deviceSchema.index({ name: 1 }, { unique: true });
 
 deviceSchema.index({ pin: 1 }, { unique: true });
